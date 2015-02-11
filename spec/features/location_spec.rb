@@ -26,17 +26,40 @@ describe 'User can CRUD locations' do
   end
 
   scenario 'User can view a show page for a location' do
-    #fill in
 
+    @location = Location.create(:name => "g6", :address => "2062 delaware", :zipcode => 122121)
+
+    visit "/locations/#{@location.id}"
+    expect(page).to have_content("g6")
   end
 
   scenario 'User can edit a location' do
-    #fill in
-  end
+    @location = Location.create(:name => "galva", :address => "2015 haight", :zipcode => 1221)
 
+
+    visit "/locations/#{@location.id}/edit"
+
+    fill_in 'location[name]', :with => "New Random Location"
+    fill_in 'location[address]', with: "Addressssss"
+    fill_in 'location[zipcode]', with: 5005
+
+    click_on("Update Location")
+
+    expect(page).to have_content("New Random Location")
+    expect(page).to have_content("Addressssss")
+    expect(page).to have_content(5005)
+
+ end
 
   scenario 'User can delete a location' do
-    #fill in
+    visit "/locations"
+
+    expect(page).to have_content("New Random Location")
+
+    click_button("Delete")
+
+    expect(page).to have_content("Location was successfully destroyed.")
+
   end
 
 
