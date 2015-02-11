@@ -52,14 +52,15 @@ describe 'User can CRUD locations' do
  end
 
   scenario 'User can delete a location' do
+    @location = Location.create(:name => "galva")
+
     visit "/locations"
 
-    expect(page).to have_content("New Random Location")
+    expect(page).to have_content("galva")
 
-    click_button("Delete")
+    click_on("Delete")
 
     expect(page).to have_content("Location was successfully destroyed.")
-
   end
 
 
