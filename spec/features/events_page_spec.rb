@@ -58,4 +58,26 @@ describe 'User can CRUD events' do
     end
 
 
+    scenario 'User can delete an event ' do
+
+      @location = Location.create(name: "galva")
+      @event = Event.create(description: "Event1")
+
+      visit '/'
+      click_on "New Location"
+      fill_in 'location[name]', :with => "Galvanize"
+      click_on "Create Location"
+
+      click_on "Add Event"
+
+      fill_in 'event[description]', :with => "Great event"
+
+      click_on "Create Event"
+
+      click_on "Delete"
+
+      expect(page).to have_content("Event was successfully destroyed.")
+
+
+    end
 end
